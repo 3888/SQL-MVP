@@ -14,7 +14,7 @@ import javax.inject.Inject;
 
 public class UsersPresenter extends FragmentPresenter<UsersPresenter.MvpView> {
 
-    private static final int ELEMENTS_SIZE = 1000;
+    private static final int ELEMENTS_SIZE = 100;
 
     @Inject
     Database<UsersObject> usersDatabase;
