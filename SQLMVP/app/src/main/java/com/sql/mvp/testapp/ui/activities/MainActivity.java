@@ -1,12 +1,11 @@
 package com.sql.mvp.testapp.ui.activities;
 
 import android.os.Bundle;
-import android.support.annotation.StringRes;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.sql.mvp.testapp.R;
+import com.sql.mvp.testapp.ui.fragments.PaginationFragment;
 import com.sql.mvp.testapp.ui.fragments.UsersFragment;
 
 public class MainActivity extends AppCompatActivity  {
@@ -17,7 +16,7 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_fragment_container, new UsersFragment());
+        transaction.replace(R.id.container, new PaginationFragment());
         transaction.commit();
     }
 }
