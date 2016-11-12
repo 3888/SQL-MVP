@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">SQL MVP Test</string>
+    <string name="app_loading">Loading…</string>
+    <string name="app_error">Error!</string>
+    <string name="app_ok">OK</string>
+    <string name="app_cancel">Cancel</string>
+
+    <!-- Errors -->
+    <string name="error_session_has_expired">Your session has expired. You will be logged out</string>
+    <string name="error_connection">Please, check your internet connection</string>
+    <string name="error_unknown">Server troubles. Please, restart app or contact developers</string>
+
+    <!-- Cake Screen -->
+    <string name="cake_no_records_found">No records found</string>
+
+    <!--UsersFragment-->
+    <string name="users_last_name" formatted="false">Last name:  %d</string>
+    <string name="users_load_db">Load DB</string>
+    <string name="users_delete_db">Delete DB</string>
+
+</resources>

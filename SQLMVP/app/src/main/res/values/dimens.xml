@@ -1,0 +1,54 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="single_line_text_field_tile_height">48dp</dimen>
+    <dimen name="single_line_text_field_padding_top">16dp</dimen>
+    <dimen name="single_line_text_field_padding_bottom">16dp</dimen>
+    <dimen name="single_line_text_field_divider">8dp</dimen>
+
+    <dimen name="app_separator_height">1dp</dimen>
+
+    <dimen name="multi_line_text_field_padding_top">16dp</dimen>
+    <dimen name="multi_line_text_field_padding_bottom">16dp</dimen>
+    <dimen name="multi_line_text_field_divider">8dp</dimen>
+
+    <!-- For sw320dp devices XHPDI (e.g. 3-4.5" phones) in landscape here. -->
+    <!-- App Constants -->
+    <dimen name="app_dp_1">1dp</dimen>
+    <dimen name="app_dp_2">2dp</dimen>
+    <dimen name="app_dp_4">4dp</dimen>
+    <dimen name="app_dp_6">6dp</dimen>
+    <dimen name="app_dp_8">8dp</dimen>
+    <dimen name="app_dp_10">10dp</dimen>
+    <dimen name="app_dp_12">12dp</dimen>
+    <dimen name="app_dp_14">16dp</dimen>
+    <dimen name="app_dp_16">16dp</dimen>
+    <dimen name="app_dp_18">18dp</dimen>
+    <dimen name="app_dp_20">20dp</dimen>
+    <dimen name="app_dp_25">25dp</dimen>
+    <dimen name="app_dp_30">30dp</dimen>
+    <dimen name="app_dp_40">40dp</dimen>
+
+    <!-- Fonts -->
+    <dimen name="app_font_size_8">8sp</dimen>
+    <dimen name="app_font_size_10">10sp</dimen>
+    <dimen name="app_font_size_12">12sp</dimen>
+    <dimen name="app_font_size_14">14sp</dimen>
+    <dimen name="app_font_size_16">16sp</dimen>
+    <dimen name="app_font_size_18">18sp</dimen>
+    <dimen name="app_font_size_20">20sp</dimen>
+    <dimen name="app_font_size_22">22sp</dimen>
+    <dimen name="app_font_size_24">24sp</dimen>
+    <dimen name="app_font_size_26">26sp</dimen>
+    <dimen name="app_font_size_28">28sp</dimen>
+    <dimen name="app_font_size_30">30sp</dimen>
+
+    <!-- Typical sizes of views -->
+    <dimen name="button_size_tall">100dp</dimen>
+    <dimen name="button_size_normal">60dp</dimen>
+    <dimen name="button_size_short">48dp</dimen>
+
+</resources>
