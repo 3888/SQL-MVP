@@ -13,6 +13,7 @@ import java.util.List;
 
 import rx.Observable;
 import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 abstract class BaseDatabase<T> implements Database<T> {
 
@@ -43,6 +44,7 @@ abstract class BaseDatabase<T> implements Database<T> {
 
     @Override
     public List<Long> insertOrUpdateElements(List<T> elements) {
+        Timber.e("insertOrUpdateElements");
         List<Long> ids = new ArrayList<>(elements.size());
 
         BriteDatabase.Transaction transaction = mDatabase.newTransaction();
@@ -54,7 +56,6 @@ abstract class BaseDatabase<T> implements Database<T> {
         } finally {
             transaction.end();
         }
-
         return ids;
     }
 

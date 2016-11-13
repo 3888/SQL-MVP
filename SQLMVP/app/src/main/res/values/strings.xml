@@ -3,6 +3,8 @@
     <string name="app_loading">Loading…</string>
 
     <!--PaginationFragment-->
+    <string name="pagination_load_db">Load DB</string>
+    <string name="pagination_delete_db">Delete DB</string>
     <string name="pagination_set_max_cached_elements_message">
         Please input value of cached elements needed </string>
     <string name="pagination_error">Max cached elements can take values from 0 to 1000 </string>

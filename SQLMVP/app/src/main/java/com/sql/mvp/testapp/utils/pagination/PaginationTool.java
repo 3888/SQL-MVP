@@ -20,7 +20,7 @@ public class PaginationTool<T> {
     // for first start of items loading then on RecyclerView there are not items and no scrolling
     private static final int EMPTY_LIST_ITEMS_COUNT = 0;
     // default limit for requests
-    private static final int DEFAULT_LIMIT = 50;
+        private static final int DEFAULT_LIMIT = 50;
     // default max attempts to retry loading request
     private static final int MAX_ATTEMPTS_TO_RETRY_LOADING = 3;
 

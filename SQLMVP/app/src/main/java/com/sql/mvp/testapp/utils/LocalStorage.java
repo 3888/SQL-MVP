@@ -8,4 +8,10 @@ public interface LocalStorage {
     int getCachedLimit();
 
     void setCachedLimit(int value);
+
+    int getStoredCount();
+
+    void setStoredCount(int value);
+
+
 }

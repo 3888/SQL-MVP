@@ -2,6 +2,7 @@ package com.sql.mvp.testapp.application.components;
 
 import com.sql.mvp.testapp.application.modules.AppModule;
 import com.sql.mvp.testapp.application.modules.DbModule;
+import com.sql.mvp.testapp.ui.adatpers.PagingRecyclerViewAdapter;
 import com.sql.mvp.testapp.ui.fragments.PaginationFragment;
 
 import javax.inject.Singleton;
@@ -13,9 +14,8 @@ import dagger.Component;
         AppModule.class,
         DbModule.class
 })
-    public interface AppComponent extends DbComponent {
-
-//    void inject(UsersFragment fragment);
+public interface AppComponent extends DbComponent {
 
     void inject(PaginationFragment fragment);
+
 }

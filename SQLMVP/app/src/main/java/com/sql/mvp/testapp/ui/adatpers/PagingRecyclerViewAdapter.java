@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import com.sql.mvp.testapp.R;
 import com.sql.mvp.testapp.utils.data.UsersData;
 
@@ -15,28 +14,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class PagingRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-    private static final int MAIN_VIEW = 0;
 
     private List<UsersData> listElements = new ArrayList<>();
     // after reorientation test this member
     // or one extra request will be sent after each reorientation
     private boolean allItemsLoaded;
-
-    static class MainViewHolder extends RecyclerView.ViewHolder {
-
-        @BindView(R.id.first_name)
-        TextView firstName;
-        @BindView(R.id.last_name)
-        TextView lastName;
-
-        public MainViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-    }
 
     public void addNewItems(List<UsersData> items) {
         if (items.size() == 0) {
@@ -66,31 +51,36 @@ public class PagingRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == MAIN_VIEW) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_users, parent, false);
-            return new MainViewHolder(v);
-        }
-        return null;
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_users, parent, false);
+        return new MainViewHolder(v);
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return MAIN_VIEW;
-    }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        switch (getItemViewType(position)) {
-            case MAIN_VIEW:
-                onBindTextHolder(holder, position);
-                break;
-        }
+        onBindTextHolder(holder, position);
+
     }
 
     private void onBindTextHolder(RecyclerView.ViewHolder holder, int position) {
         MainViewHolder mainHolder = (MainViewHolder) holder;
         mainHolder.firstName.setText(getItem(position).getFirstName());
         mainHolder.lastName.setText(getItem(position).getLastName());
+
+        Timber.e("first NAME = " + getItem(position).getFirstName());
+        Timber.e("last NAME = " + getItem(position).getLastName());
     }
 
+    static class MainViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.first_name)
+        TextView firstName;
+        @BindView(R.id.last_name)
+        TextView lastName;
+
+        public MainViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
 }
