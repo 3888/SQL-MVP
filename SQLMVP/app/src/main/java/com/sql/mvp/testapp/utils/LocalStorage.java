@@ -5,8 +5,8 @@ import de.ad.sharp.api.SharedPreference;
 @SharedPreference
 public interface LocalStorage {
 
-    int getStoredCount();
+    int getCachedLimit();
 
-    void setStoredCount(int value);
+    void setCachedLimit(int value);
 
 }

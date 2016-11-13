@@ -6,24 +6,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/app_dp_10"
-        android:layout_marginTop="@dimen/app_dp_10"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:padding="@dimen/app_dp_10"
+        android:orientation="horizontal"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
-        <Button
-            android:id="@+id/users_load_db"
-            android:layout_width="@dimen/button_size_tall"
+        <EditText
+            android:id="@+id/pagination_cached_elements_count_edit_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/app_dp_40"
-            android:text="@string/users_load_db" />
-
-        <Button
-            android:id="@+id/users_delete_db"
-            android:layout_width="@dimen/button_size_tall"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/app_dp_40"
-            android:text="@string/users_delete_db" />
+            android:imeOptions="actionDone"
+            android:hint="@string/pagination_set_max_cached_elements_message"
+            android:inputType="number"
+            android:maxLength="4" />
 
     </LinearLayout>
 

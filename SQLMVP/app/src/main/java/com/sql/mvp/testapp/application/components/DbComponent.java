@@ -2,7 +2,6 @@ package com.sql.mvp.testapp.application.components;
 
 
 import com.sql.mvp.testapp.database.Database;
-import com.sql.mvp.testapp.server.models.UsersObject;
 import com.sql.mvp.testapp.utils.data.UsersData;
 import com.squareup.sqlbrite.BriteContentResolver;
 import com.squareup.sqlbrite.BriteDatabase;
@@ -16,6 +15,5 @@ public interface DbComponent {
 
     SqlBrite sqlBrite();
 
-//    Database<UsersObject> pointsDatabase();
     Database<UsersData> usersDatabase();
 }

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.sql.mvp.testapp.server.models.UsersObject;
 import com.sql.mvp.testapp.utils.data.UsersData;
 
 public class UsersDatabase extends BaseDatabase<UsersData> {

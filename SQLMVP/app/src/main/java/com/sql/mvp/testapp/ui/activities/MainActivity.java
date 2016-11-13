@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.sql.mvp.testapp.R;
 import com.sql.mvp.testapp.ui.fragments.PaginationFragment;
-import com.sql.mvp.testapp.ui.fragments.UsersFragment;
 
 public class MainActivity extends AppCompatActivity  {
 

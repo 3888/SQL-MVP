@@ -28,6 +28,5 @@ public abstract class BaseFragment extends Fragment {
 
     public interface BaseMvpView {
         void showProgress(boolean show);
-
     }
 }

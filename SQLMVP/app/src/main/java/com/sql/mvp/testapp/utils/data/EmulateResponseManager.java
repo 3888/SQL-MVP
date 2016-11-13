@@ -13,7 +13,7 @@ import rx.Observable;
  */
 public class EmulateResponseManager {
 
-    private final static int MAX_LIMIT = 1000;
+    public static final int MAX_LIMIT = 1000;
     private static final long FAKE_RESPONSE_TIME_IN_MS = 200;
     private final static int MAX_FAKE_ERROR_COUNT = 2;
     private final static int OFFSET_WHEN_FAKE_ERROR = 200;
@@ -60,7 +60,7 @@ public class EmulateResponseManager {
         // Generate List of Items
         for (int i = offset; i < concreteLimit; i++) {
             String itemStr = String.valueOf(i);
-            list.add(new UsersData(i, NameGenerator.getRandomName().concat(itemStr) , itemStr));
+            list.add(new UsersData(i, NameGenerator.getRandomName().concat(itemStr), itemStr));
         }
         return list;
     }

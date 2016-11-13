@@ -1,12 +1,18 @@
 package com.sql.mvp.testapp.ui.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
 import com.sql.mvp.testapp.R;
@@ -23,14 +29,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import de.ad.sharp.api.SharP;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import timber.log.Timber;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -41,7 +46,6 @@ public class PaginationFragment extends Fragment {
     private PagingRecyclerViewAdapter recyclerViewAdapter;
     private Subscription pagingSubscription;
     private LocalStorage storage;
-    private int storedCount = 0;
 
     @Inject
     Database<UsersData> usersDatabase;
@@ -49,13 +53,11 @@ public class PaginationFragment extends Fragment {
     @BindView(R.id.pagination_list)
     RecyclerView recyclerView;
 
-    @OnClick(R.id.users_load_db)
-    public void loadElementsToDB() {
-    }
+    @BindView(R.id.pagination_cached_elements_count_edit_text)
+    EditText chachedElementsEditText;
 
-    @OnClick(R.id.users_delete_db)
-    public void deleteElementsFromDB() {
-    }
+    @BindString(R.string.pagination_error)
+    String error;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -96,12 +98,36 @@ public class PaginationFragment extends Fragment {
             return;
         }
 
+        if (storage.getCachedLimit() == 0) {
+            storage.setCachedLimit(LIMIT);
+        }
+
+        chachedElementsEditText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+
+                String cachedElements = chachedElementsEditText.getText().toString();
+                int maxLimit = EmulateResponseManager.MAX_LIMIT;
+
+                if (TextUtils.isEmpty(cachedElements) && Integer.valueOf(cachedElements) == 0 &&
+                        Integer.valueOf(cachedElements) > maxLimit) {
+                    storage.setCachedLimit(Integer.valueOf(cachedElements));
+                    Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+                }
+
+
+                InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                return true;
+            }
+            return false;
+        });
+
         // RecyclerView pagination
         PaginationTool<List<UsersData>> paginationTool = PaginationTool.
                 buildPagingObservable(recyclerView, offset -> EmulateResponseManager
                         .getInstance()
-                        .getEmulateResponse(offset, LIMIT))
-                .setLimit(LIMIT)
+                        .getEmulateResponse(offset, storage.getCachedLimit()))
+                .setLimit(storage.getCachedLimit())
                 .build();
 
         pagingSubscription = paginationTool
@@ -118,12 +144,8 @@ public class PaginationFragment extends Fragment {
 
                     @Override
                     public void onNext(List<UsersData> items) {
-
-//                        usersDatabase.insertOrUpdateElements(items);
-//                        Timber.e("DB count = " + usersDatabase.getCount());
-//                        recyclerViewAdapter.addNewItems(usersDatabase.getElements());
-
-                        recyclerViewAdapter.addNewItems(items);
+                        usersDatabase.insertOrUpdateElements(items);
+                        recyclerViewAdapter.addNewItems(usersDatabase.getElements());
                         recyclerViewAdapter.notifyItemInserted(recyclerViewAdapter.getItemCount() - items.size());
                     }
                 });
@@ -138,16 +160,8 @@ public class PaginationFragment extends Fragment {
         // for memory leak prevention (RecycleView is not unsubscibed from adapter DataObserver)
         if (recyclerView != null) {
             recyclerView.setAdapter(null);
+            usersDatabase.deleteElements();
         }
         super.onDestroyView();
     }
-
-//    private void saveToDB(List<UsersData> items) {
-//        storedCount += items.size();
-//        storage.setStoredCount(storedCount);
-//        Timber.e("getStoredCount() = " + storage.getStoredCount());
-//        usersDatabase.insertOrUpdateElements(items);
-//    }
-
-
 }
