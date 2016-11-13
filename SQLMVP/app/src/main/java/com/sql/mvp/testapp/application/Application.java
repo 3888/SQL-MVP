@@ -10,7 +10,6 @@ import com.sql.mvp.testapp.application.modules.AppModule;
 import com.sql.mvp.testapp.application.modules.DbModule;
 import com.sql.mvp.testapp.database.DatabaseHelper;
 
-import java.util.concurrent.Executors;
 
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
@@ -24,7 +23,7 @@ public class Application extends android.app.Application {
         super.onCreate();
 
         appComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this, Executors.newSingleThreadExecutor()))
+                .appModule(new AppModule(this))
                 .dbModule(new DbModule(new DatabaseHelper(this)))
                 .build();
 

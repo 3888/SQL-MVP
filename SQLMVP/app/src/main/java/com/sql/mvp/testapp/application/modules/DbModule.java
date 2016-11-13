@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.sql.mvp.testapp.database.Database;
 import com.sql.mvp.testapp.database.UsersDatabase;
 import com.sql.mvp.testapp.server.models.UsersObject;
+import com.sql.mvp.testapp.utils.data.UsersData;
 import com.squareup.sqlbrite.BriteContentResolver;
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
@@ -52,7 +53,7 @@ public final class DbModule {
 
     @Provides
     @Singleton
-    Database<UsersObject> providePointsDatabase(Context context, SQLiteOpenHelper sqliteOpenHelper) {
+    Database<UsersData> providePointsDatabase(Context context, SQLiteOpenHelper sqliteOpenHelper) {
         return new UsersDatabase(context, sqliteOpenHelper);
     }
 }

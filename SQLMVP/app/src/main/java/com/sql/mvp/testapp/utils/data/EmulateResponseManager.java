@@ -1,5 +1,7 @@
 package com.sql.mvp.testapp.utils.data;
 
+import com.sql.mvp.testapp.utils.NameGenerator;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -31,7 +33,7 @@ public class EmulateResponseManager {
         return client;
     }
 
-    public Observable<List<Item>> getEmulateResponse(int offset, int limit) {
+    public Observable<List<UsersData>> getEmulateResponse(int offset, int limit) {
         if (offset == OFFSET_WHEN_FAKE_ERROR && fakeErrorCount < MAX_FAKE_ERROR_COUNT) {
             // emulate fake error in response
             fakeErrorCount++;
@@ -44,8 +46,8 @@ public class EmulateResponseManager {
         }
     }
 
-    private List<Item> getFakeItemList(int offset, int limit) {
-        List<Item> list = new ArrayList<>();
+    private List<UsersData> getFakeItemList(int offset, int limit) {
+        List<UsersData> list = new ArrayList<>();
         // If offset > MAX_LIMIT then there is no Items in Fake server. So we return empty List
         if (offset > MAX_LIMIT) {
             return list;
@@ -58,7 +60,7 @@ public class EmulateResponseManager {
         // Generate List of Items
         for (int i = offset; i < concreteLimit; i++) {
             String itemStr = String.valueOf(i);
-            list.add(new Item(i, itemStr));
+            list.add(new UsersData(i, NameGenerator.getRandomName().concat(itemStr) , itemStr));
         }
         return list;
     }

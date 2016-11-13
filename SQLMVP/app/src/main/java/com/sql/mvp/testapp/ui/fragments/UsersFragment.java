@@ -43,9 +43,9 @@ public class UsersFragment extends BaseFragment implements UsersPresenter.MvpVie
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.screen_users, container, false);
 
-        Application
-                .getComponent(getContext())
-                .inject(this);
+//        Application
+//                .getComponent(getContext())
+//                .inject(this);
 
         presenter.onAttachView(this, ButterKnife.bind(this, view));
 

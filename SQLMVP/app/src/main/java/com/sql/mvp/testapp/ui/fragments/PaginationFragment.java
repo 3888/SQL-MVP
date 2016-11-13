@@ -1,15 +1,3 @@
-/**
- * Copyright 2015 Eugene Matsyuk (matzuk2@mail.ru)
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in
- * compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is
- * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See
- * the License for the specific language governing permissions and limitations under the License.
- */
 package com.sql.mvp.testapp.ui.fragments;
 
 import android.os.Bundle;
@@ -22,17 +10,27 @@ import android.view.ViewGroup;
 
 
 import com.sql.mvp.testapp.R;
+import com.sql.mvp.testapp.application.Application;
+import com.sql.mvp.testapp.database.Database;
 import com.sql.mvp.testapp.ui.adatpers.PagingRecyclerViewAdapter;
+import com.sql.mvp.testapp.utils.LocalStorage;
 import com.sql.mvp.testapp.utils.data.EmulateResponseManager;
-import com.sql.mvp.testapp.utils.data.Item;
+import com.sql.mvp.testapp.utils.data.UsersData;
 import com.sql.mvp.testapp.utils.pagination.PaginationTool;
 
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import de.ad.sharp.api.SharP;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import timber.log.Timber;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -41,14 +39,38 @@ public class PaginationFragment extends Fragment {
 
     private final static int LIMIT = 50;
     private PagingRecyclerViewAdapter recyclerViewAdapter;
-    private RecyclerView recyclerView;
     private Subscription pagingSubscription;
+    private LocalStorage storage;
+    private int storedCount = 0;
+
+    @Inject
+    Database<UsersData> usersDatabase;
+
+    @BindView(R.id.pagination_list)
+    RecyclerView recyclerView;
+
+    @OnClick(R.id.users_load_db)
+    public void loadElementsToDB() {
+    }
+
+    @OnClick(R.id.users_delete_db)
+    public void deleteElementsFromDB() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fmt_pagination, container, false);
+        View rootView = inflater.inflate(R.layout.screen_pagination, container, false);
         setRetainInstance(true);
+
+        ButterKnife.bind(this, rootView);
+        Application
+                .getComponent(getContext())
+                .inject(this);
+
+        storage = SharP.getInstance(getActivity(), LocalStorage.class);
+
         init(rootView, savedInstanceState);
+
         return rootView;
     }
 
@@ -58,7 +80,6 @@ public class PaginationFragment extends Fragment {
     }
 
     private void init(View view, Bundle savedInstanceState) {
-        recyclerView = (RecyclerView) view.findViewById(R.id.RecyclerView);
         GridLayoutManager recyclerViewLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerViewLayoutManager.supportsPredictiveItemAnimations();
         // init adapter for the first time
@@ -76,17 +97,17 @@ public class PaginationFragment extends Fragment {
         }
 
         // RecyclerView pagination
-        PaginationTool<List<Item>> paginationTool = PaginationTool.
+        PaginationTool<List<UsersData>> paginationTool = PaginationTool.
                 buildPagingObservable(recyclerView, offset -> EmulateResponseManager
-                .getInstance()
-                .getEmulateResponse(offset, LIMIT))
+                        .getInstance()
+                        .getEmulateResponse(offset, LIMIT))
                 .setLimit(LIMIT)
                 .build();
 
         pagingSubscription = paginationTool
                 .getPagingObservable()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<Item>>() {
+                .subscribe(new Subscriber<List<UsersData>>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -96,7 +117,12 @@ public class PaginationFragment extends Fragment {
                     }
 
                     @Override
-                    public void onNext(List<Item> items) {
+                    public void onNext(List<UsersData> items) {
+
+//                        usersDatabase.insertOrUpdateElements(items);
+//                        Timber.e("DB count = " + usersDatabase.getCount());
+//                        recyclerViewAdapter.addNewItems(usersDatabase.getElements());
+
                         recyclerViewAdapter.addNewItems(items);
                         recyclerViewAdapter.notifyItemInserted(recyclerViewAdapter.getItemCount() - items.size());
                     }
@@ -107,6 +133,7 @@ public class PaginationFragment extends Fragment {
     public void onDestroyView() {
         if (pagingSubscription != null && !pagingSubscription.isUnsubscribed()) {
             pagingSubscription.unsubscribe();
+            usersDatabase.deleteElements();
         }
         // for memory leak prevention (RecycleView is not unsubscibed from adapter DataObserver)
         if (recyclerView != null) {
@@ -114,5 +141,13 @@ public class PaginationFragment extends Fragment {
         }
         super.onDestroyView();
     }
+
+//    private void saveToDB(List<UsersData> items) {
+//        storedCount += items.size();
+//        storage.setStoredCount(storedCount);
+//        Timber.e("getStoredCount() = " + storage.getStoredCount());
+//        usersDatabase.insertOrUpdateElements(items);
+//    }
+
 
 }

@@ -48,10 +48,10 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolderIt
     }
 
     static class ViewHolderItem extends RecyclerView.ViewHolder {
-        @BindView(R.id.item_first_name)
-        TextView first_name;
-        @BindView(R.id.item_last_name)
-        TextView last_name;
+//        @BindView(R.id.item_first_name)
+//        TextView first_name;
+//        @BindView(R.id.item_last_name)
+//        TextView last_name;
 
         private final Context context;
 
@@ -62,8 +62,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolderIt
         }
 
         void bind(UsersObject users) {
-            first_name.setText(users.getFirstName());
-            last_name.setText(users.getLastName());
+//            first_name.setText(users.getFirstName());
+//            last_name.setText(users.getLastName());
 
         }
     }
