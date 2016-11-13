@@ -8,5 +8,4 @@ public interface LocalStorage {
     int getCachedLimit();
 
     void setCachedLimit(int value);
-
 }

@@ -40,6 +40,9 @@ import rx.android.schedulers.AndroidSchedulers;
 /**
  * A placeholder fragment containing a simple view.
  */
+
+//TODO provide PaginationPresenter
+
 public class PaginationFragment extends Fragment {
 
     private final static int LIMIT = 50;

@@ -8,15 +8,12 @@ import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 
-/**
- * @author e.matsyuk
- */
 public class EmulateResponseManager {
 
     public static final int MAX_LIMIT = 1000;
     private static final long FAKE_RESPONSE_TIME_IN_MS = 200;
-    private final static int MAX_FAKE_ERROR_COUNT = 2;
-    private final static int OFFSET_WHEN_FAKE_ERROR = 200;
+    private static final int MAX_FAKE_ERROR_COUNT = 2;
+    private static final int OFFSET_WHEN_FAKE_ERROR = 200;
 
     private static volatile EmulateResponseManager client;
 
@@ -64,5 +61,4 @@ public class EmulateResponseManager {
         }
         return list;
     }
-
 }

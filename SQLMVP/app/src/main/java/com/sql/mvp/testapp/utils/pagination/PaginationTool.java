@@ -1,15 +1,3 @@
-/**
- * Copyright 2015 Eugene Matsyuk (matzuk2@mail.ru)
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in
- * compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is
- * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See
- * the License for the specific language governing permissions and limitations under the License.
- */
 package com.sql.mvp.testapp.utils.pagination;
 
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,9 +15,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.Subscriptions;
 
-/**
- * @author e.matsyuk
- */
 public class PaginationTool<T> {
 
     // for first start of items loading then on RecyclerView there are not items and no scrolling
@@ -85,10 +70,10 @@ public class PaginationTool<T> {
     private int getLastVisibleItemPosition(RecyclerView recyclerView) {
         Class recyclerViewLMClass = recyclerView.getLayoutManager().getClass();
         if (recyclerViewLMClass == LinearLayoutManager.class || LinearLayoutManager.class.isAssignableFrom(recyclerViewLMClass)) {
-            LinearLayoutManager linearLayoutManager = (LinearLayoutManager)recyclerView.getLayoutManager();
+            LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
             return linearLayoutManager.findLastVisibleItemPosition();
         } else if (recyclerViewLMClass == StaggeredGridLayoutManager.class || StaggeredGridLayoutManager.class.isAssignableFrom(recyclerViewLMClass)) {
-            StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager)recyclerView.getLayoutManager();
+            StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) recyclerView.getLayoutManager();
             int[] into = staggeredGridLayoutManager.findLastVisibleItemPositions(null);
             List<Integer> intoList = new ArrayList<>();
             for (int i : into) {
@@ -177,7 +162,5 @@ public class PaginationTool<T> {
             paginationTool.emptyListCountPlusToOffset = emptyListCountPlusToOffset;
             return paginationTool;
         }
-
     }
-
 }
