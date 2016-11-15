@@ -2,8 +2,6 @@ package com.sql.mvp.testapp.database;
 
 import android.database.Cursor;
 
-import com.sql.mvp.testapp.utils.data.UsersData;
-
 import java.util.List;
 
 import rx.Observable;

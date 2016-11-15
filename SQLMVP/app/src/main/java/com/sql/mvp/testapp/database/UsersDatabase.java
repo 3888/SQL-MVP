@@ -5,9 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.sql.mvp.testapp.utils.data.UsersData;
+import com.sql.mvp.testapp.server.models.UsersObject;
 
-public class UsersDatabase extends BaseDatabase<UsersData> {
+
+public class UsersDatabase extends BaseDatabase<UsersObject> {
 
     public static final String TABLE_NAME = "data";
 
@@ -27,8 +28,8 @@ public class UsersDatabase extends BaseDatabase<UsersData> {
                     ");";
 
     @Override
-    UsersData toObject(Cursor cursor) {
-        UsersData.Builder builder = new UsersData.Builder();
+    UsersObject toObject(Cursor cursor) {
+        UsersObject.Builder builder = new UsersObject.Builder();
         builder.firstName(cursor.getString(cursor.getColumnIndexOrThrow(COL_FIRST_NAME)));
         builder.lastName(cursor.getString(cursor.getColumnIndexOrThrow(COL_LAST_NAME)));
 
@@ -36,7 +37,7 @@ public class UsersDatabase extends BaseDatabase<UsersData> {
     }
 
     @Override
-    ContentValues toContentValues(UsersData element) {
+    ContentValues toContentValues(UsersObject element) {
         ContentValues values = new ContentValues();
         values.put(COL_FIRST_NAME, element.getFirstName());
         values.put(COL_LAST_NAME, element.getLastName());

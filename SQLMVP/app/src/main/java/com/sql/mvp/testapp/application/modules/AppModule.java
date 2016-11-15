@@ -14,9 +14,15 @@ import dagger.Provides;
 public final class AppModule {
 
     private final Context context;
+    private final ExecutorService executorService;
 
     public AppModule(Context context) {
+        this(context, Executors.newCachedThreadPool());
+    }
+
+    public AppModule(Context context, ExecutorService executor) {
         this.context = context;
+        this.executorService = executor;
     }
 
     @Provides
@@ -25,4 +31,9 @@ public final class AppModule {
         return context;
     }
 
+    @Provides
+    @Singleton
+    ExecutorService provideExecutor() {
+        return executorService;
+    }
 }
