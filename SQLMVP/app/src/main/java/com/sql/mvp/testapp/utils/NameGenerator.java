@@ -16,7 +16,7 @@ public class NameGenerator {
    
    private static Random rand = new Random();
 
-   public static String getRandomName() {
+   public static String getRandom() {
 
       return Beginning[rand.nextInt(Beginning.length)] + 
             Middle[rand.nextInt(Middle.length)]+
