@@ -36,6 +36,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolderIt
         notifyItemRangeInserted(previousDataSize, items.size());
     }
 
+    public void clearList(){
+        usersData.clear();
+    }
 
     @Override
     public UsersAdapter.ViewHolderItem onCreateViewHolder(ViewGroup parent, int viewType) {

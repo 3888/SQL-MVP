@@ -4,7 +4,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textSize">@dimen/app_font_size_14</item>
+        <item name="android:textSize">@dimen/app_font_size_12</item>
         <item name="android:listDivider">@color/color_divider_gray</item>
 
     </style>

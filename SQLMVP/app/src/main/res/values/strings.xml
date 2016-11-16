@@ -6,11 +6,11 @@
     <!--UsersFragment-->
     <string name="users_load_db">Load DB</string>
     <string name="users_delete_db">Delete DB</string>
+    <string name="users_disconnect">Disconnect</string>
     <string name="users_set_max_cached_elements_message">Please input value
-        of cached elements needed </string>
+        of cached elements needed: </string>
     <string name="users_error">Max cached elements can take values from 0 to 1000 </string>
     <string name="users_loading">"Total items loaded: %d. \n
         Loading more...</string>
-
 
 </resources>

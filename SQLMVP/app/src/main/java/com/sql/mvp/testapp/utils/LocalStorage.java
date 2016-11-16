@@ -8,9 +8,4 @@ public interface LocalStorage {
     int getCachedLimit();
 
     void setCachedLimit(int value);
-
-    int getStoredPageCount();
-
-    void setStoredPageCount(int value);
-
 }

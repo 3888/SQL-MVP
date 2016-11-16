@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.Unbinder;
 import timber.log.Timber;
 
 public class UsersPresenter extends FragmentPresenter<UsersPresenter.MvpView>
@@ -26,27 +27,41 @@ public class UsersPresenter extends FragmentPresenter<UsersPresenter.MvpView>
         super(context);
     }
 
-    private boolean loading = false;
+    @Override
+    public void onAttachView(MvpView mvpView, Unbinder unbinder) {
+        super.onAttachView(mvpView, unbinder);
+    }
 
-    public void loading(boolean loading){
+    private boolean loading;
+
+    public void loading(boolean loading) {
         this.loading = loading;
     }
 
-    public void getUsers(int page) {
+    public void getUsers(int page, boolean needPagination) {
         Timber.e("getUsers page = " + page);
-        List<UsersObject> data = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            UsersObject usersObject = new UsersObject.Builder()
-                    .firstName(NameGenerator.getRandom() + " " + page + i)
-                    .lastName(NameGenerator.getRandom() + " " + page + i)
-                    .build();
-            data.add(i, usersObject);
-//            Timber.e("page = " + page);
-//            Timber.e("i = " + i);
+        Timber.e("getUsers needPagination = " + needPagination);
+        if (needPagination) {
+            List<UsersObject> data = new ArrayList<>();
+            for (int i = 0; i < 10; i++) {
+                UsersObject usersObject = new UsersObject.Builder()
+                        .firstName(NameGenerator.getRandom() + " " + page + i)
+                        .lastName(NameGenerator.getRandom() + " " + page + i)
+                        .build();
+                data.add(i, usersObject);
+                Timber.e("page = " + page);
+                Timber.e("i = " + i);
+            }
+
+            usersDatabase.insertOrUpdateElements(data);
+            Timber.e("usersDatabase.getCount() = " + usersDatabase.getCount());
+
+            mvpView.initAdapter(data);
+        } else {
+            Timber.e("usersDatabase.getCount() = " + usersDatabase.getCount());
+            mvpView.initAdapter(usersDatabase.getElements());
         }
 
-//        usersDatabase.insertOrUpdateElements(data);
-        mvpView.initAdapter(data);
     }
 
     public void deleteUsers() {
@@ -57,7 +72,7 @@ public class UsersPresenter extends FragmentPresenter<UsersPresenter.MvpView>
     public void onLoadMore() {
         Timber.e("onLoadMore");
         loading = true;
-        mvpView.addUserdToDB();
+        mvpView.addUsersToDB();
 
     }
 
@@ -76,6 +91,6 @@ public class UsersPresenter extends FragmentPresenter<UsersPresenter.MvpView>
     public interface MvpView extends BaseFragment.BaseMvpView {
         void initAdapter(List<UsersObject> users);
 
-        void addUserdToDB();
+        void addUsersToDB();
     }
 }
