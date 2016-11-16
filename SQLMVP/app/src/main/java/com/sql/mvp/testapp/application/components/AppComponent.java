@@ -13,7 +13,7 @@ import dagger.Component;
         AppModule.class,
         DbModule.class
 })
-    public interface AppComponent extends DbComponent {
+public interface AppComponent {
 
     void inject(UsersFragment fragment);
 }

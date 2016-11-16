@@ -6,7 +6,6 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textSize">@dimen/app_font_size_12</item>
         <item name="android:listDivider">@color/color_divider_gray</item>
-
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -23,6 +22,5 @@
         <item name="android:paddingTop">@dimen/multi_line_text_field_padding_top</item>
         <item name="android:paddingBottom">@dimen/multi_line_text_field_padding_bottom</item>
     </style>
-
 
 </resources>

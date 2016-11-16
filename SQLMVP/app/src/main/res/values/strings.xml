@@ -2,7 +2,6 @@
     <string name="app_name">SQL MVP Test</string>
     <string name="app_loading">Loading…</string>
 
-
     <!--UsersFragment-->
     <string name="users_load_db">Load DB</string>
     <string name="users_delete_db">Delete DB</string>

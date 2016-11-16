@@ -21,7 +21,6 @@ public abstract class FragmentPresenter<V> extends BasePresenter<V> {
     @Override
     public void onDetachView() {
         super.onDetachView();
-
         unbinder.unbind();
     }
 }

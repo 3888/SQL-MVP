@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import com.sql.mvp.testapp.R;
 import com.sql.mvp.testapp.server.models.UsersObject;
 
@@ -22,22 +21,10 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolderIt
     private final LayoutInflater inflater;
     private final Context context;
 
-
     public UsersAdapter(Context context, List<UsersObject> data) {
         this.context = context;
         this.usersData = data;
         this.inflater = LayoutInflater.from(context);
-
-    }
-
-    public void add(List<UsersObject> items) {
-        int previousDataSize = usersData.size();
-        this.usersData.addAll(items);
-        notifyItemRangeInserted(previousDataSize, items.size());
-    }
-
-    public void clearList(){
-        usersData.clear();
     }
 
     @Override
@@ -50,11 +37,19 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolderIt
         return usersData != null ? usersData.size() : 0;
     }
 
-
-
     @Override
     public void onBindViewHolder(ViewHolderItem holder, int position) {
         holder.bind(usersData.get(position));
+    }
+
+    public void add(List<UsersObject> items) {
+        int previousDataSize = usersData.size();
+        this.usersData.addAll(items);
+        notifyItemRangeInserted(previousDataSize, items.size());
+    }
+
+    public void clearList() {
+        usersData.clear();
     }
 
     static class ViewHolderItem extends RecyclerView.ViewHolder {
@@ -74,14 +69,6 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolderIt
         void bind(UsersObject users) {
             first_name.setText(users.getFirstName());
             last_name.setText(users.getLastName());
-
-        }
-    }
-
-    public void unbind() {
-        if (usersData != null) {
-            usersData.clear();
-            usersData = null;
         }
     }
 }

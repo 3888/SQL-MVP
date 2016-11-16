@@ -7,14 +7,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.sql.mvp.testapp.server.models.UsersObject;
 
-
 public class UsersDatabase extends BaseDatabase<UsersObject> {
 
     public static final String TABLE_NAME = "data";
 
     public static final String COL_FIRST_NAME = "first_name";
     public static final String COL_LAST_NAME = "last_name";
-
 
     public UsersDatabase(Context context, SQLiteOpenHelper database) {
         super(context, TABLE_NAME, database);

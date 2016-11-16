@@ -18,8 +18,6 @@ abstract class BaseDatabase<T> implements Database<T> {
 
     protected static final String COL_ID = "_id";
     protected static final String COL_SERVER_ID = "server_id";
-    protected static final String COL_CREATED = "created";
-    protected static final String COL_UPDATED = "updated";
 
     protected final Context mContext;
     protected final BriteDatabase mDatabase;

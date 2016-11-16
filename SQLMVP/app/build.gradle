@@ -70,8 +70,6 @@ dependencies {
     }
 
     compile "com.squareup.sqlbrite:sqlbrite:$sqlbriteVersion"
-    compile "de.ad:sharp-api:$sharerPreferenceVersion"
-    apt "de.ad:sharp-processor:$sharerPreferenceVersion"
 
     compile "io.reactivex:rxjava:$rxjavaVersion"
     compile "io.reactivex:rxandroid:$rxandroidVersion"

@@ -16,7 +16,6 @@ import com.sql.mvp.testapp.application.Application;
 import com.sql.mvp.testapp.server.models.UsersObject;
 import com.sql.mvp.testapp.ui.adatpers.UsersAdapter;
 import com.sql.mvp.testapp.ui.presenters.UsersPresenter;
-import com.sql.mvp.testapp.utils.LocalStorage;
 
 import java.util.List;
 
@@ -26,31 +25,29 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import timber.log.Timber;
 
 public class UsersFragment extends BaseFragment implements UsersPresenter.MvpView {
 
+    public static final int MOCK_NETWORK_DELAY = 1000;
+
     @BindView(R.id.users_list)
     RecyclerView recyclerView;
+
     @BindString(R.string.users_loading)
     String loading;
 
     @Inject
     UsersPresenter presenter;
 
-    public static final int MOCK_NETWORK_DELAY = 1000;
-
     private UsersAdapter adapter;
     private Paginate paginate;
-    private LocalStorage storage;
     private Handler handler;
     private int offsetLimit = 2;
     private int page = 0;
-    boolean needPagination = true;
+    private boolean needPagination = true;
 
     @OnClick(R.id.users_load_from_db)
     public void loadElementsFromDB() {
-        Timber.e("******loadElementsFromDB******");
         presenter.getUsers(0, needPagination);
     }
 
@@ -61,8 +58,6 @@ public class UsersFragment extends BaseFragment implements UsersPresenter.MvpVie
 
     @OnClick(R.id.users_disconnect)
     public void disconnect() {
-        Timber.e("******disconnect******");
-//        storage.setStoredPageCount(0);
         page = 0;
         needPagination = false;
 
@@ -70,39 +65,7 @@ public class UsersFragment extends BaseFragment implements UsersPresenter.MvpVie
             paginate.unbind();
         }
         adapter.clearList();
-
-//        if (adapter != null) {
-//            adapter.unbind();
-//            adapter = null;
-//    }
-
-}
-
-private class CustomLoadingListItemCreator implements LoadingListItemCreator {
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.loading_row, parent, false);
-        return new ViewHolderLoading(view);
     }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ViewHolderLoading viewHolderLoading = (ViewHolderLoading) holder;
-        viewHolderLoading.loading_message.setText(String.format(loading, adapter.getItemCount()));
-    }
-}
-
-static class ViewHolderLoading extends RecyclerView.ViewHolder {
-    @BindView(R.id.tv_loading_text)
-    TextView loading_message;
-
-    public ViewHolderLoading(View itemView) {
-        super(itemView);
-        ButterKnife.bind(this, itemView);
-    }
-
-}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -112,16 +75,12 @@ static class ViewHolderLoading extends RecyclerView.ViewHolder {
                 .getComponent(getContext())
                 .inject(this);
 
-//        storage = SharP.getInstance(getActivity(), LocalStorage.class);
-//        page = storage.getStoredPageCount();
-
         presenter.onAttachView(this, ButterKnife.bind(this, view));
 
         handler = new Handler();
         presenter.getUsers(0, needPagination);
         recyclerView.setAdapter(adapter);
 
-//        recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
@@ -142,13 +101,9 @@ static class ViewHolderLoading extends RecyclerView.ViewHolder {
 
     @Override
     public void initAdapter(List<UsersObject> users) {
-        Timber.e("initAdapter");
         if (adapter == null) {
-            Timber.e("adapter == null");
             adapter = new UsersAdapter(getActivity(), users);
-
         } else {
-            Timber.e("adapter != null");
             adapter.add(users);
         }
     }
@@ -164,13 +119,35 @@ static class ViewHolderLoading extends RecyclerView.ViewHolder {
     private Runnable mockDataRunnable = new Runnable() {
         @Override
         public void run() {
-//            storage.setStoredPageCount(page++);
             page++;
-            Timber.e("addUsersToDB page = " + page);
-            Timber.e("needPagination = " + needPagination);
             presenter.getUsers(page, needPagination);
             presenter.loading(false);
 
         }
     };
+
+    static class ViewHolderLoading extends RecyclerView.ViewHolder {
+        @BindView(R.id.tv_loading_text)
+        TextView loading_message;
+
+        ViewHolderLoading(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+
+    private class CustomLoadingListItemCreator implements LoadingListItemCreator {
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            View view = inflater.inflate(R.layout.loading_row, parent, false);
+            return new ViewHolderLoading(view);
+        }
+
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            ViewHolderLoading viewHolderLoading = (ViewHolderLoading) holder;
+            viewHolderLoading.loading_message.setText(String.format(loading, adapter.getItemCount()));
+        }
+    }
 }

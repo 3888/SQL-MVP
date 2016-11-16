@@ -1,13 +1,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingEnd="@dimen/screen_users_fragment_padding_end"
+    android:paddingStart="@dimen/screen_users_fragment_padding_start">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/app_dp_10"
-        android:layout_marginTop="@dimen/app_dp_10"
+        android:layout_marginBottom="@dimen/screen_users_buttons_container_margin_bottom"
+        android:layout_marginTop="@dimen/screen_users_buttons_container_margin_top"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -15,7 +17,7 @@
             android:id="@+id/users_load_from_db"
             android:layout_width="@dimen/button_size_tall"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/app_dp_10"
+            android:layout_marginEnd="@dimen/screen_users_button_margin_end"
             android:text="@string/users_load_db" />
 
         <Button
@@ -28,7 +30,7 @@
             android:id="@+id/users_disconnect"
             android:layout_width="@dimen/button_size_tall"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/app_dp_10"
+            android:layout_marginStart="@dimen/screen_users_button_margin_start"
             android:text="@string/users_disconnect" />
 
     </LinearLayout>
@@ -36,20 +38,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/app_dp_10"
-        android:orientation="horizontal"
         android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal"
+        android:padding="@dimen/screen_users_offset_input_container_padding">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/users_set_max_cached_elements_message"/>
+            android:text="@string/users_set_max_cached_elements_message" />
 
         <EditText
-            android:layout_marginStart="@dimen/app_dp_10"
             android:id="@+id/users_cached_elements_count_edit_text"
-            android:layout_width="@dimen/app_dp_40"
+            android:layout_width="@dimen/screen_users_offset_edit_text_width"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_users_offset_edit_text_margin_start"
             android:imeOptions="actionDone"
             android:inputType="number"
             android:maxLength="4" />
@@ -60,6 +63,6 @@
         android:id="@+id/users_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical" />
 
 </LinearLayout>
