@@ -9,6 +9,5 @@ ext {
     rxandroidVersion = '1.2.0'
     paginateVersion = '0.5.1'
     annotationVersion = '1.2'
-    annotationApiVerson = '1.0'
     retrofitVersion = '2.0.2'
 }

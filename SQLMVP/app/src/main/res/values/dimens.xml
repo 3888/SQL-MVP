@@ -58,8 +58,7 @@
     <dimen name="screen_users_buttons_container_margin_top">10dp</dimen>
     <dimen name="screen_users_button_margin_end">10dp</dimen>
     <dimen name="screen_users_button_margin_start">10dp</dimen>
-    <dimen name="screen_users_offset_input_container_padding">10dp</dimen>
-    <dimen name="screen_users_offset_edit_text_width">40dp</dimen>
-    <dimen name="screen_users_offset_edit_text_margin_start">10dp</dimen>
+    <dimen name="screen_users_item_text_view_margin_end">5dp</dimen>
+    <dimen name="screen_users_item_text_view_margin_start">5dp</dimen>
 
 </resources>

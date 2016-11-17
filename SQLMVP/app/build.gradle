@@ -76,10 +76,7 @@ dependencies {
 
     compile "com.github.markomilos:paginate:$paginateVersion"
 
-    compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
     compile "javax.annotation:javax.annotation-api:$annotationVersion"
-    provided "javax.annotation:jsr250-api:$annotationApiVerson"
 }
